@@ -1,57 +1,79 @@
+const axios = require("axios");
+const cheerio = require("cheerio");
+const mongojs = require("mongojs");
+const databaseUrl = "scraperHWdb";
+const collections = ["scraperHW"];
+// Hook mongojs configuration to the db variable
+const db = mongojs(databaseUrl, collections);
+db.on("error", function (error) {
+    console.log("Database Error:");
+});
+
 module.exports = function (app) {
     app.get("/", function (req, res) {
-        res.render('index');
+        // Find all results from the scraperHW collection in the db
+        res.render('home');
     });
 
-    // Retrieve data from the db
-    app.get("/all", function (req, res) {
-        // Find all results from the scrapedData collection in the db
-        db.scrapedData.find({}, function (error, found) {
-            // Throw any errors to the console
-            if (error) {
-                console.log(error);
+    app.get('/all', (req, res) => {
+        db.scraperHW.find({}, (err, data) => {
+            if (err) {
+                console.log('line 24: extract error');
             }
-            // If there are no errors, send the data to the browser as json
             else {
-                res.json(found);
+
+                let dataObject = { articles: data };
+                res.render('index', dataObject);
             }
-        });
+        })
     });
 
     // Scrape data from one site and place it into the mongodb db
     app.get("/scrape", function (req, res) {
         // Make a request via axios for the news section of `ycombinator`
-        axios.get("https://news.ycombinator.com/").then(function (response) {
+        axios.get("https://www.huffpost.com/").then(function (response) {
             // Load the html body from axios into cheerio
-            var $ = cheerio.load(response.data);
+            let $ = cheerio.load(response.data);
             // For each element with a "title" class
-            $(".title").each(function (i, element) {
-                // Save the text and href of each link enclosed in the current element
-                var title = $(element).children("a").text();
-                var link = $(element).children("a").attr("href");
+            $(".card").each(function (i, element) {
+                let cardContent = $(element).children('.card__content');
+
+                let cardDetails = $(cardContent).children('.card__details');
+                let cardImgWrapper = $(cardContent).children('.card__image__wrapper');
+
+
+                let cardHeadlines = $(cardDetails).children('.card__headlines');
+                let cardImgHolder = $(cardImgWrapper).children('.card__image');
+
+                let cardImg = $(cardImgHolder).children('img').attr('src');
+                let headline = $(cardHeadlines).children('.card__headline').text();
+                let headlineURL = $(cardImgWrapper).attr('href');
+
 
                 // If this found element had both a title and a link
-                if (title && link) {
-                    // Insert the data in the scrapedData db
-                    db.scrapedData.insert({
-                        title: title,
-                        link: link
-                    },
+                if (headline) {
+                    // Insert the data in the scraperHW db
+                    db.scraperHW.insert(
+                        {
+                            title: headline,
+                            link: headlineURL,
+                            photo: cardImg
+                        },
                         function (err, inserted) {
                             if (err) {
                                 // Log the error if one is encountered during the query
-                                console.log(err);
+                                console.log('line 53: insert error');
                             }
                             else {
                                 // Otherwise, log the inserted data
-                                console.log(inserted);
+
                             }
-                        });
+                        }
+                    );
+
                 }
             });
+            res.redirect('/all');
         });
-
-        // Send a "Scrape Complete" message to the browser
-        res.send("Scrape Complete");
     });
 }

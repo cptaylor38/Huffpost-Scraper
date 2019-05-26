@@ -1,0 +1,25 @@
+<div class="jumbotron jumbotron-fluid headerJumbo">
+    <div class="container">
+        <h1>Scraper</h1>
+    </div>
+    <button type='button' id='scrapeBtn'>Scrape the newest articles.</button>
+</div>
+
+<div class='container-fluid' id='postsArea'>
+
+    {{#each articles}}
+    <div class='col-lg-3 col-md-6 col-sm-12 card' id='card-{{id}}'>
+        <a href='{{link}}' target='_blank'>{{title}}</a>
+        <img src='{{photo}}'>
+        <span>
+            <button type='button' id='addComment{{id}}'>
+                Add a comment.
+            </button>
+            <button type='button' id='deletePost{{id}}'>
+                Remove this article.
+            </button>
+        </span>
+    </div>
+    {{/each}}
+
+</div>

@@ -1,0 +1,25 @@
+.headerJumbo
+{
+    text-align: center;
+}
+
+#postsArea
+{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
+
+.card
+{
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    text-align: center;
+}
+
+.card > img
+{
+    margin: 10px;
+    padding: 10px;
+}
