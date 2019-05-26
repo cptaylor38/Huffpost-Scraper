@@ -5,6 +5,9 @@ const databaseUrl = "scraperHWdb";
 const collections = ["scraperHW"];
 // Hook mongojs configuration to the db variable
 const db = mongojs(databaseUrl, collections);
+
+
+
 db.on("error", function (error) {
     console.log("Database Error:");
 });
@@ -35,7 +38,7 @@ module.exports = function (app) {
             // Load the html body from axios into cheerio
             let $ = cheerio.load(response.data);
             // For each element with a "title" class
-            $(".card").each(function (i, element) {
+            $(".card--twilight").each(function (i, element) {
                 let cardContent = $(element).children('.card__content');
 
                 let cardDetails = $(cardContent).children('.card__details');
@@ -49,15 +52,18 @@ module.exports = function (app) {
                 let headline = $(cardHeadlines).children('.card__headline').text();
                 let headlineURL = $(cardImgWrapper).attr('href');
 
+                let cardDescription = $(cardHeadlines).children('.card__description');
+                let description = $(cardDescription).children('a').text();
+
 
                 // If this found element had both a title and a link
                 if (headline) {
-                    // Insert the data in the scraperHW db
                     db.scraperHW.insert(
                         {
                             title: headline,
                             link: headlineURL,
-                            photo: cardImg
+                            photo: cardImg,
+                            description: description
                         },
                         function (err, inserted) {
                             if (err) {
@@ -67,10 +73,10 @@ module.exports = function (app) {
                             else {
                                 // Otherwise, log the inserted data
 
+
                             }
                         }
                     );
-
                 }
             });
             res.redirect('/all');
