@@ -1,6 +1,59 @@
+#landingContainer
+{
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap; 
+    width: 100vw;
+    height: 100vh;
+    background: url('https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/2386489/910/650/m2/fpnw/wm1/ru1xl6fhc4w3akltednghiqx23ho6jzvhkr2rtqvxhk7yororgfczebhbvfx5ydm-.jpg?1489118290&s=97082bd0e6efb2bd7243c26f7c026dbc');
+}
+
+#landingContainer > .content
+{
+    text-align: center;
+    position: absolute;
+    bottom: 50%;
+    background: rgb(202, 199, 199);
+    padding: 40px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#landingContainer > .content > button
+{
+    background: none;
+    padding: 10px;
+    border: none;
+    outline: 2px solid black;
+}
+
+#landingContainer > .content > button:hover
+{
+    background: rgb(173, 63, 59);
+    color: white;
+}
+
 .headerJumbo
 {
     text-align: center;
+    background: url('../images/cityscape.svg');
+    background-size: cover;
+    background-position: center center;
+    color: white;
+    margin-bottom: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#scrapeBtn
+{
+    padding: 5px 10px;
+    background: white;
+    color: black;
+}
+
+#scrapeBtn:hover
+{
+    background: rgb(173, 63, 59);
+    color: white;
 }
 
 #postsArea
@@ -8,6 +61,8 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
+    background: url('https://images.template.net/wp-content/uploads/2015/09/Graffiti-Backgrounds.jpg');
+    background-size: contain;
 }
 
 .card
