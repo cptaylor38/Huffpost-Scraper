@@ -1,7 +1,16 @@
 const express = require("express");
 
 // Require axios and cheerio. This makes the scraping possible
+var mongoose = require("mongoose");
 
+var db = require("./models");
+
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/MongoArticles";
+
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI, {
+    // useMongoClient: true
+});
 
 const exphbs = require('express-handlebars');
 

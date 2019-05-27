@@ -1,16 +1,9 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 const mongojs = require("mongojs");
-const databaseUrl = "scraperHWdb";
-const collections = ["scraperHW"];
+
 // Hook mongojs configuration to the db variable
-const db = mongojs(databaseUrl, collections);
-
-
-
-db.on("error", function (error) {
-    console.log("Database Error:");
-});
+const db = require("../models");
 
 module.exports = function (app) {
     app.get("/", function (req, res) {
@@ -19,7 +12,7 @@ module.exports = function (app) {
     });
 
     app.get('/all', (req, res) => {
-        db.scraperHW.find({}, (err, data) => {
+        db.Article.find({}, (err, data) => {
             if (err) {
                 console.log('line 24: extract error');
             }
@@ -55,27 +48,21 @@ module.exports = function (app) {
                 let cardDescription = $(cardHeadlines).children('.card__description');
                 let description = $(cardDescription).children('a').text();
 
+                newARticle = {
+                    title: headline,
+                    link: headlineURL,
+                    photo: cardImg,
+                    description: description
+                };
 
                 // If this found element had both a title and a link
                 if (headline) {
-                    db.scraperHW.insert(
-                        {
-                            title: headline,
-                            link: headlineURL,
-                            photo: cardImg,
-                            description: description
-                        },
-                        function (err, inserted) {
-                            if (err) {
-                                // Log the error if one is encountered during the query
-                                console.log('line 53: insert error');
-                            }
-                            else {
-                                // Otherwise, log the inserted data
-
-
-                            }
+                    db.Article.create(newARticle, (err, inserted) => {
+                        if (err) {
+                            // Log the error if one is encountered during the query
+                            console.log('line 53: insert error');
                         }
+                    }
                     );
                 }
             });

@@ -16,14 +16,16 @@
         <img src='{{photo}}'>
         <p>{{description}}</p>
         <span>
-            <button type='button' id='addComment{{id}}'>
-                Add a comment.
-            </button>
-            <button type='button' id='deletePost{{id}}'>
-                Remove this article.
+            <textarea id='commentText' id='commentBox' data-comment={{id}} style='width: 80%;'></textarea>
+            <button type='submit' class='commentBtn' id='addComment{{id}}' data-id={{id}}>
+                Add comment.
             </button>
         </span>
+        <div class='notesArea'>
+            {{#each note}}
+            {{> comments/comments body=body id=_id}}
+            {{/each}}
+        </div>
     </div>
     {{/each}}
-
 </div>
