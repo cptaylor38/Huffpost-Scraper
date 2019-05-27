@@ -9,22 +9,21 @@
 </div>
 
 <div class='container-fluid' id='postsArea'>
-
     {{#each articles}}
     <div class='col-lg-3 col-md-6 col-sm-12 card' id='card-{{id}}'>
         <a href='{{link}}' target='_blank'>{{title}}</a>
         <img src='{{photo}}'>
         <p>{{description}}</p>
         <span>
-            <textarea id='commentText' id='commentBox' data-comment={{id}} style='width: 80%;'></textarea>
+            <label for="userText">Username:</label>
+            <input type="text" id="userText" name="userText" placeholder="Username">
+            <textarea id='commentText' id='commentBox' data-comment={{id}} style='width: 100%;'></textarea>
             <button type='submit' class='commentBtn' id='addComment{{id}}' data-id={{id}}>
                 Add comment.
             </button>
         </span>
         <div class='notesArea'>
-            {{#each note}}
-            {{> comments/comments body=body id=_id}}
-            {{/each}}
+            {{> comments/comments note=this.note}}
         </div>
     </div>
     {{/each}}

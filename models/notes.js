@@ -3,8 +3,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const NoteSchema = new Schema({
+    user: { type: String },
     body: {
-        type: String
+        type: String,
+        article: { type: Schema.Types.ObjectId, ref: 'Article' }
     }
 });
 

@@ -38,7 +38,8 @@
     background: url('../images/cityscape.svg');
     background-size: cover;
     background-position: center center;
-    color: white;
+    color: rgb(236, 222, 204);
+    font-weight: bolder;
     margin-bottom: 0;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }

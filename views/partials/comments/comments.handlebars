@@ -1,3 +1,9 @@
-<div class='container'>{{body}}
-    <button type='button' data-id={{id}}>Delete comment.</button>
+{{#each note}}
+<div class='container'
+    style='margin: 20px 0; border: 2px solid black; padding: 10px; display: flex; justify-content: space-evenly; text-align: center; flex-direction: column;'>
+    <h5>{{this.user}}</h5>
+    <p>{{this.body}}</p>
+    <button type='button' class='deleteComment' data-id={{this._id}} style='margin-top: 10px;'>Delete
+        comment.</button>
 </div>
+{{/each}}
