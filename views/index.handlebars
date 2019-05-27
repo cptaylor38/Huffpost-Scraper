@@ -16,8 +16,8 @@
         <p>{{description}}</p>
         <span>
             <label for="userText">Username:</label>
-            <input type="text" id="userText" name="userText" placeholder="Username">
-            <textarea id='commentText' id='commentBox' data-comment={{id}} style='width: 100%;'></textarea>
+            <input type="text" id="userText" name="userText" data-user={{id}} placeholder="Username">
+            <textarea id='commentText' data-comment={{id}} style='width: 100%;'></textarea>
             <button type='submit' class='commentBtn' id='addComment{{id}}' data-id={{id}}>
                 Add comment.
             </button>

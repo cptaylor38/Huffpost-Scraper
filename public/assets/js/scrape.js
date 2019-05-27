@@ -7,14 +7,21 @@ $('#contBtn').on('click', () => {
     location.href = '/all';
 });
 
-$('.deleteComment').on('click', () => {
-
+$('.deleteComment').on('click', function () {
+    let id = $(this).attr('data-id');
+    $.ajax({
+        method: "PUT",
+        url: "/delete/note/" + id
+    }).then(
+        function (res) {
+            location.href = '/all';
+        });
 });
 
 $('.commentBtn').on('click', function () {
     let id = $(this).attr('data-id');
-    let user = $('#userText').val().trim();
-    let body = $('#commentText').val().trim();
+    let user = $(`[data-user="${id}"]`).val().trim();
+    let body = $(`[data-comment="${id}"]`).val().trim();
 
     let data = {
         user: user,
@@ -32,6 +39,10 @@ $('.commentBtn').on('click', function () {
                 location.href = '/all';
             });
     }
-
+    else {
+        console.log(user + body);
+    }
+    $('#userText').val().trim();
+    $('#commentText').val().trim();
 
 })
