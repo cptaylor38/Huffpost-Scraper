@@ -1,11 +1,12 @@
 const express = require("express");
-
 // Require axios and cheerio. This makes the scraping possible
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
+const bodyparser = require('body-parser');
+const db = require("./models");
 
-var db = require("./models");
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/MongoArticles";
+
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/MongoArticles";
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI, {
@@ -17,10 +18,9 @@ const exphbs = require('express-handlebars');
 // Initialize Express
 const app = express();
 
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyparser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static("public"));
-
 app.engine(
     "handlebars",
     exphbs({
@@ -34,11 +34,10 @@ app.set("view engine", "handlebars");
 // Main route (simple Hello World Message)
 require("./routes/api-routes")(app);
 
+const port = process.env.PORT || 3000;
 
-// Listen on port 3000
-app.listen(3000, function () {
-    console.log("App running on port 3000!");
+app.listen(port, () => {
+    console.log(`Server listening on port: ${port}`);
 });
-
 
 module.exports = app;
