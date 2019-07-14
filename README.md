@@ -11,3 +11,4 @@ Click continue on landing page, then hit the scrape button in the header. The ar
 ![Landing page](./public/assets/images/landing.png)
 
 ![Homepage](./public/assets/images/scraped.png)
+
