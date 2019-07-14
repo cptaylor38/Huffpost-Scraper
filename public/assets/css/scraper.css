@@ -20,7 +20,7 @@
 
 #landingContainer > .content > button
 {
-    background: none;
+    background: rgb(230, 198, 111);
     padding: 10px;
     border: none;
     outline: 2px solid black;
@@ -35,13 +35,31 @@
 .headerJumbo
 {
     text-align: center;
+    position: relative;
     background: url('../images/cityscape.svg');
     background-size: cover;
     background-position: center center;
-    color: rgb(236, 222, 204);
+    color: rgb(7, 5, 5);
     font-weight: bolder;
     margin-bottom: 0;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.overlay
+{
+    position: absolute;
+    background-color: rgba(255, 230, 88, 0.877);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.titleSummary
+{
+    position: relative;
+    z-index: 2;
 }
 
 #scrapeBtn
@@ -63,7 +81,10 @@
     flex-flow: row wrap;
     justify-content: space-evenly;
     background: url('https://images.template.net/wp-content/uploads/2015/09/Graffiti-Backgrounds.jpg');
-    background-size: contain;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .card
@@ -72,6 +93,7 @@
     padding: 20px;
     display: flex;
     text-align: center;
+    background: rgb(235, 198, 217);
 }
 
 .card > img
